@@ -4,23 +4,23 @@ import { ref } from 'vue'
 const projects = ref([
   {
     title: 'Project 1',
-    description: 'A web application built with Vue.js and Node.js',
+    description: 'A  Pomodoro timer with task management',
     image: 'https://via.placeholder.com/300x200',
-    link: '#',
-    tags: ['Vue.js', 'Node.js', 'MongoDB']
+    link: 'https://github.com/Alson07/Promodo-TImer',
+    tags: ['Html', 'CSS', 'JavaScript']
   },
   {
     title: 'Project 2',
-    description: 'An e-commerce platform with real-time updates',
+    description: 'An Platform for finding rooms',
     image: 'https://via.placeholder.com/300x200',
-    link: '#',
-    tags: ['React', 'Firebase', 'Stripe']
+    link: 'https://github.com/Alson07/Room-Finder',
+    tags: ['.Net', 'SQL', 'Bootstrap']
   },
   {
     title: 'Project 3',
-    description: 'A responsive portfolio website',
+    description: 'A weather information app',
     image: 'https://via.placeholder.com/300x200',
-    link: '#',
+    link: 'https://github.com/Alson07/Weather_info',
     tags: ['HTML', 'CSS', 'JavaScript']
   }
 ])

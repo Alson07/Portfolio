@@ -1,60 +1,55 @@
 <script setup>
 import { ref } from 'vue'
 
+// Skills array with categories and paths for SVG icons
 const skills = ref([
-  { name: 'HTML', level: 90, color: '#E34F26' },
-  { name: 'CSS', level: 85, color: '#1572B6' },
-  { name: 'JavaScript', level: 88, color: '#F7DF1E' },
-  { name: 'Vue.js', level: 82, color: '#4FC08D' },
-  { name: 'Node.js', level: 75, color: '#339933' },
-  { name: 'SQL', level: 70, color: '#003B57' },
-])
-
-// Add animation on intersection
-const skillRefs = ref([])
-
-if (typeof window !== 'undefined') {
-  const observer = new IntersectionObserver(
-    (entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('animate')
-        }
-      })
-    },
-    { threshold: 0.5 }
-  )
-
-  setTimeout(() => {
-    skillRefs.value.forEach(el => {
-      if (el) observer.observe(el)
-    })
-  }, 100)
-}
+  { 
+    category: "Languages and Technologies", 
+    path: "src/svg/lang",
+    items: ["C", "CS", "SQL", "PowerShell", "HTML", "CSS", "JS", "TS"] 
+  },
+  { 
+    category: "Database and Analytics", 
+    path: "src/svg/db",
+    items: ["db", "sql", "pgsql", "powerbi", "Excel"] 
+  },
+  { 
+    category: "Utilities", 
+    path: "src/svg/utilities",
+    items: ["Windows", "Linux", "Terminal", "Git", "vs", "vscode", "Office"] 
+  },
+  { 
+    category: "Libraries and Frameworks", 
+    path: "src/svg/lib",
+    items: ["aspnet", "vue", "jQuery", "Playwright"] 
+  },
+  { 
+    category: "Design", 
+    path: "src/svg/design",
+    items: ["Figma", "Photoshop"] 
+  },
+]);
 </script>
-
 <template>
   <section id="skills" class="skills">
     <h2>Skills</h2>
-    <div class="skills-grid">
-      <div 
-        v-for="(skill, index) in skills" 
-        :key="skill.name" 
-        class="skill-item"
-        ref="skillRefs"
-      >
-        <div class="skill-header">
-          <div class="skill-name">{{ skill.name }}</div>
-          <div class="skill-percentage">{{ skill.level }}%</div>
-        </div>
-        <div class="skill-bar">
+    <div class="skills-container">
+      <div v-for="(skillCategory, index) in skills" :key="index" class="skill-category">
+        <h3>{{ skillCategory.category }}</h3>
+        <div class="skill-icons">
           <div 
-            class="skill-level" 
-            :style="{ 
-              width: '0%', 
-              backgroundColor: skill.color 
-            }"
-          ></div>
+            v-for="(skill, i) in skillCategory.items" 
+            :key="i" 
+            class="skill-icon"
+          >
+            <!-- Dynamically load SVG from the respective category path -->
+            <img 
+              :src="`${skillCategory.path}/${skill}.svg`" 
+              :alt="skill" 
+              class="icon"
+            />
+            <span class="skill-name">{{ skill }}</span>
+          </div>
         </div>
       </div>
     </div>
@@ -72,67 +67,58 @@ h2 {
   margin-bottom: 3rem;
 }
 
-.skills-grid {
+.skills-container {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
   gap: 2rem;
-  max-width: 800px;
+  max-width: 1200px;
   margin: 0 auto;
 }
 
-.skill-item {
+.skill-category {
   background: var(--card-bg);
   padding: 1.5rem;
   border-radius: 8px;
   box-shadow: var(--card-shadow);
-  transform: translateY(20px);
-  opacity: 0;
-  transition: transform 0.5s, opacity 0.5s;
 }
 
-.skill-item.animate {
-  transform: translateY(0);
-  opacity: 1;
-}
-
-.skill-item.animate .skill-level {
-  width: var(--skill-level);
-}
-
-.skill-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 0.5rem;
-}
-
-.skill-name {
-  font-weight: 500;
+h3 {
+  margin-bottom: 1rem;
   color: var(--text-primary);
 }
 
-.skill-percentage {
+.skill-icons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+}
+
+.skill-icon {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 80px;
+}
+
+.icon {
+  width: 64px;
+  height: 64px;
+  object-fit: contain;
+}
+
+.skill-name {
+  margin-top: 0.5rem;
+  text-align: center;
   color: var(--text-secondary);
   font-size: 0.9rem;
 }
 
-.skill-bar {
-  height: 8px;
-  background: var(--bg-secondary);
-  border-radius: 4px;
-  overflow: hidden;
-}
-
-.skill-level {
-  height: 100%;
-  border-radius: 4px;
-  transition: width 1s ease-in-out;
-}
-
 @media (max-width: 768px) {
-  .skills-grid {
-    grid-template-columns: 1fr;
+  .skills-container {
     padding: 0 1rem;
+  }
+
+  .skill-icons {
+    justify-content: center;
   }
 }
 </style>
