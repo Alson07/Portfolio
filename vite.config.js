@@ -6,11 +6,16 @@ export default defineConfig({
   base: '/Portfolio/',
   build: {
     rollupOptions: {
-      external: [],
       output: {
         format: 'es',
-        inlineDynamicImports: true
+        inlineDynamicImports: true,
+        manualChunks: undefined
       }
+    }
+  },
+  resolve: {
+    alias: {
+      vue: 'https://unpkg.com/vue@3/dist/vue.esm-browser.js'
     }
   }
 })
