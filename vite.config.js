@@ -5,12 +5,6 @@ export default defineConfig({
   plugins: [vue()],
   base: '/Portfolio/',
   build: {
-    outDir: 'dist',
-    assetsDir: 'assets',
-    rollupOptions: {
-      output: {
-        manualChunks: undefined
-      }
-    }
+    outDir: 'dist'
   }
 })
